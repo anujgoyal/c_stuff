@@ -21,8 +21,9 @@ __m128i add_vector(__m128i *a, __m128i *b) {
     return r;
 }
 
+// simplify adding two large vectors
 void add_vectors(__m128i *a, __m128i *b, __m128i *out, int N) {
-    for(int i=0; i<N/4; i++) { 
+    for(int i=0; i<N/sizeof(__m128i); i++) { 
         out[i]= _mm_add_epi32(a[i], b[i]);;
     } 
 }
@@ -84,7 +85,7 @@ int main() {
         *ph = _mm_add_epi32( *pf, *pg);
     }*/
     add_vectors((__m128i*)f, (__m128i*)g, (__m128i*)h, 32768);
-    // DEBUG: print first elements of e 
+    // DEBUG: print first elements of e
     printf("\nvector+vector\n");
     p128_as_int(* (__m128i*) &h[0] );
 
