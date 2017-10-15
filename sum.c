@@ -23,7 +23,9 @@ __m128i add_vector(__m128i *a, __m128i *b) {
 
 // simplify adding two large vectors
 void add_vectors(__m128i *a, __m128i *b, __m128i *out, int N) {
-    for(int i=0; i<N/sizeof(__m128i); i++) { 
+    // insight: sizeof(int) because f,g,h are arrays of ints
+    // will have to modify for char, short, uint64_t, etc.
+    for(int i=0; i<N/sizeof(int); i++) { 
         out[i]= _mm_add_epi32(a[i], b[i]);;
     } 
 }
@@ -78,16 +80,23 @@ int main() {
     int f[32768] __attribute__((aligned(16))) = {0,2,4};
     int g[32768] __attribute__((aligned(16))) = {1,3,5};
     int h[32768] __attribute__((aligned(16))); // going to be overridden
-/*    for (int i=0; i<32768; i+=4) {
+    f[32765] = 33;
+    f[32766] = 34;
+    f[32767] = 35;
+    add_vectors((__m128i*)f, (__m128i*)g, (__m128i*)h, 32768);
+
+    // another way to add large vectors
+    /* for (int i=0; i<32768; i+=4) {
         __m128i *pf = (__m128i*)(&f[i]);
         __m128i *pg = (__m128i*)(&g[i]);
         __m128i *ph = (__m128i*)(&h[i]);
         *ph = _mm_add_epi32( *pf, *pg);
-    }*/
-    add_vectors((__m128i*)f, (__m128i*)g, (__m128i*)h, 32768);
+    } */
     // DEBUG: print first elements of e
     printf("\nvector+vector\n");
     p128_as_int(* (__m128i*) &h[0] );
+    printf("\nvector+vector:end\n");
+    p128_as_int(* (__m128i*) &h[32764] );
 
     //printf("sum: %d\n", result);
     return EXIT_SUCCESS;
