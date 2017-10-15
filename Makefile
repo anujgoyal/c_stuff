@@ -17,4 +17,7 @@ it:
 	./fastadd
 
 sum: sum.c
-	clang -O3 -msse4.1 sum.c ; ./a.out
+	clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+
+sumass: sum.c
+	clang -S -O3 -msse -msse2 -msse3 -msse4.1 sum.c
