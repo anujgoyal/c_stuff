@@ -1,9 +1,10 @@
 CC=clang
 CFLAGS=-Wall -I.
 LIBS=-lm
+DEBUG=-g
 
 fastadd: add_sse.c
-	$(CC) -o fastadd  add_sse.c $(CFLAGS)
+	$(CC) $(CCFLAGS) -o fastadd add_sse.c
 
 all: fastadd
 
@@ -15,3 +16,5 @@ it:
 	make clean; make all
 	./fastadd
 
+sum: sum.c
+	clang -O3 -msse4.1 sum.c ; ./a.out
