@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <x86intrin.h>
+#include <time.h>
 
 void p128_as_char(__m128i in) {
     uint8_t *v = (uint8_t*) &in;
@@ -22,11 +23,18 @@ __m128i add_vector(__m128i *a, __m128i *b) {
 }
 
 // simplify adding two large vectors
-void add_vectors(__m128i *a, __m128i *b, __m128i *out, int N) {
+void add_vectors_sse(__m128i *a, __m128i *b, __m128i *out, int N) {
     // insight: sizeof(int) because f,g,h are arrays of ints
     // will have to modify for char, short, uint64_t, etc.
     for(int i=0; i<N/sizeof(int); i++) { 
-        out[i]= _mm_add_epi32(a[i], b[i]);;
+        //out[i]= _mm_add_epi32(a[i], b[i]);;
+        _mm_storeu_si128(&out[i], _mm_add_epi32(a[i], b[i]));
+    } 
+}
+
+void add_vectors_no_sse(int *a, int *b, int *out, int N) {
+    for(int i=0; i<N; i++) { 
+        out[i] = a[i] + b[i];
     } 
 }
 
@@ -80,10 +88,9 @@ int main() {
     int f[32768] __attribute__((aligned(16))) = {0,2,4};
     int g[32768] __attribute__((aligned(16))) = {1,3,5};
     int h[32768] __attribute__((aligned(16))); // going to be overridden
-    f[32765] = 33;
-    f[32766] = 34;
-    f[32767] = 35;
-    add_vectors((__m128i*)f, (__m128i*)g, (__m128i*)h, 32768);
+    f[32765] = 33; f[32766] = 34; f[32767] = 35;
+    g[32765] = 31; g[32766] = 32; g[32767] = 33;
+    add_vectors_sse((__m128i*)f, (__m128i*)g, (__m128i*)h, 32768);
 
     // another way to add large vectors
     /* for (int i=0; i<32768; i+=4) {
@@ -98,6 +105,23 @@ int main() {
     printf("\nvector+vector:end\n");
     p128_as_int(* (__m128i*) &h[32764] );
 
-    //printf("sum: %d\n", result);
+    // process intense function; https://stackoverflow.com/questions/459691/best-timing-method-in-c
+    clock_t start = clock(), diff;
+        #define CYCLE_COUNT  10000
+        for(int i=0; i<CYCLE_COUNT; ++i) {
+            add_vectors_sse((__m128i*)f, (__m128i*)g, (__m128i*)h, 32768);
+        }
+    diff = clock() - start;
+    int msec = diff * 1000 / CLOCKS_PER_SEC;
+    printf("Time taken %d seconds %d milliseconds\n", msec/1000, msec%1000);
+
+    // process intense function again
+    start = clock();
+        for(int i=0; i<CYCLE_COUNT; ++i) {
+            add_vectors_no_sse(f,g,h,32768);
+        }
+    msec = (clock()-start) * 1000 / CLOCKS_PER_SEC;
+    printf("Time taken %d seconds %d milliseconds\n", msec/1000, msec%1000);
+
     return EXIT_SUCCESS;
 }
