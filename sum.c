@@ -21,6 +21,12 @@ __m128i add_vector(__m128i *a, __m128i *b) {
     return r;
 }
 
+void add_vectors(__m128i *a, __m128i *b, __m128i *out, int N) {
+    for(int i=0; i<N/4; i++) { 
+        out[i]= _mm_add_epi32(a[i], b[i]);;
+    } 
+}
+
 int main() {
 
     // basic addition of two SSE vectors
@@ -52,10 +58,9 @@ int main() {
     res = add_vector(&y,&z);
     p128_as_int(res);
 
-    // sum up values for an array
-    // option 1: atom + vector
+    // sum: atom + vector
     int c[4]     __attribute__((aligned(16))) = {5,5,5,5};
-    int d[32768] __attribute__((aligned(16))) = {1};
+    int d[32768] __attribute__((aligned(16))) = {1,-1};
     int e[32768] __attribute__((aligned(16))); // going to be overridden
     __m128i *pc = (__m128i*)c;
     for (int i=0; i<32768; i+=4) {
@@ -63,12 +68,25 @@ int main() {
         __m128i *pe = (__m128i*)(&e[i]);
         *pe = _mm_add_epi32( *pc, *pd);
     }
-    // print first elements of e
+    // DEBUG: print first elements of e 
     pc = (__m128i*)&e[0];
-    printf("atom+vector\n");
+    printf("\natom+vector\n");
     p128_as_int(*pc);
 
-    // option 2: vector + vector, both must be equal length
+    // sum: vector + vector, both must be equal length
+    int f[32768] __attribute__((aligned(16))) = {0,2,4};
+    int g[32768] __attribute__((aligned(16))) = {1,3,5};
+    int h[32768] __attribute__((aligned(16))); // going to be overridden
+/*    for (int i=0; i<32768; i+=4) {
+        __m128i *pf = (__m128i*)(&f[i]);
+        __m128i *pg = (__m128i*)(&g[i]);
+        __m128i *ph = (__m128i*)(&h[i]);
+        *ph = _mm_add_epi32( *pf, *pg);
+    }*/
+    add_vectors((__m128i*)f, (__m128i*)g, (__m128i*)h, 32768);
+    // DEBUG: print first elements of e 
+    printf("\nvector+vector\n");
+    p128_as_int(* (__m128i*) &h[0] );
 
     //printf("sum: %d\n", result);
     return EXIT_SUCCESS;
