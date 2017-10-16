@@ -27,3 +27,4 @@ https://stackoverflow.com/users/224132/peter-cordes
 
 https://carrv.github.io/papers/clark-rv8-carrv2017.pdf 
 
+https://locklessinc.com/articles/vectorize, remember to use 'restrict' and '__builtin_assume_aligned'
