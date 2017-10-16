@@ -1,0 +1,242 @@
+Time taken 0 seconds 143 milliseconds
+[2322][agoyal3@khoolex-mobl:c_stuff]$ vim sum.c 
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 137 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 141 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 142 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 134 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 155 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 127 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 144 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 135 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 136 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 145 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 108 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 139 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 135 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 141 milliseconds
+[2323][agoyal3@khoolex-mobl:c_stuff]$ make sum
+clang -O3 -msse -msse2 -msse3 -msse4.1 sum.c ; ./a.out
+int: 12 10 8 6
+int: 1 2 3 4
+
+int: 6 8 10 12
+
+atom+vector
+int: 6 4 5 5
+
+vector+vector
+int: 1 5 9 0
+
+vector+vector:end
+int: 0 64 66 68
+Time taken 0 seconds 137 milliseconds
