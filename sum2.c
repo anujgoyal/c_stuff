@@ -13,15 +13,22 @@ __attribute__((noinline)) __m128i add_iv(__m128i *a, __m128i *b) {
 }
 
 // add int vectors via sse
-__attribute__((noinline)) void add_iv_sse(__m128i *a, __m128i *b, __m128i *out, int N) {
-    for(int i=0; i<N/sizeof(int); i++) { 
+// https://en.wikipedia.org/wiki/Restrict
+__attribute__((noinline)) void add_iv_sse(__m128i *restrict a, __m128i *restrict b, __m128i *restrict out, int N) {
+
+    __m128i *x = __builtin_assume_aligned(a, 16);
+    __m128i *y = __builtin_assume_aligned(b, 16);
+    __m128i *z = __builtin_assume_aligned(out, 16);
+
+    const int loops = N / sizeof(int);
+    for(int i=0; i < loops; i++) { 
         //out[i]= _mm_add_epi32(a[i], b[i]); // this also works
-        _mm_storeu_si128(&out[i], _mm_add_epi32(a[i], b[i]));
+        _mm_storeu_si128(&z[i], _mm_add_epi32(x[i], y[i]));
     } 
 }
 
 // add int vectors without sse
-__attribute__((noinline)) void add_iv_nosse(int *a, int *b, int *out, int N) {
+__attribute__((noinline)) void add_iv_nosse(int *restrict a, int *restrict b, int *restrict out, int N) {
     for(int i=0; i<N; i++) { 
         out[i] = a[i] + b[i];
     } 
