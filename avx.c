@@ -63,8 +63,8 @@ int main(int argc, char *argv[]) {
 
     int *x,*y,*z;
     if (posix_memalign((void**)&x, 32, 16384*sizeof(int))) { free(x); return EXIT_FAILURE; }
-    if (posix_memalign((void**)&y, 32, 16384*sizeof(int))) { free(x); return EXIT_FAILURE; }
-    if (posix_memalign((void**)&z, 32, 16384*sizeof(int))) { free(x); return EXIT_FAILURE; }
+    if (posix_memalign((void**)&y, 32, 16384*sizeof(int))) { free(y); return EXIT_FAILURE; }
+    if (posix_memalign((void**)&z, 32, 16384*sizeof(int))) { free(z); return EXIT_FAILURE; }
     x[0]=0; x[1]=2; x[2]=4;
     y[0]=1; y[1]=3; y[2]=n;
         
@@ -73,23 +73,31 @@ int main(int argc, char *argv[]) {
     int g[AR] __attribute__((aligned(16))) = {1,3,n};
     int h[AR] __attribute__((aligned(16))); 
 
+    // warmup
+    for(int i=0; i<REPS; ++i) { add_iv_avx((__m256i*)x, (__m256i*)y, (__m256i*)z, AR); }
     // AVX
     clock_t start = clock();
-        for(int i=0; i<REPS; ++i) {
-            add_iv_avx((__m256i*)x, (__m256i*)y, (__m256i*)z, AR);
-        }
+    for(int i=0; i<REPS; ++i) { add_iv_avx((__m256i*)x, (__m256i*)y, (__m256i*)z, AR); }
     int msec = (clock()-start) * 1000 / CLOCKS_PER_SEC;
     printf("  AVX Time taken: %d seconds %d milliseconds\n", msec/1000, msec%1000);
     debug_print(z);
 
+    // SSE old
+    //start = clock();
+    //for(int i=0; i<REPS; ++i) { add_iv_sse((__m128i*)f, (__m128i*)g, (__m128i*)h, AR); }
+    //msec = (clock()-start) * 1000 / CLOCKS_PER_SEC;
+    //printf("\n  SSE Time taken: %d seconds %d milliseconds\n", msec/1000, msec%1000);
+    //debug_print(h);
+
+    // warmup
+    for(int i=0; i<REPS; ++i) { add_iv_sse((__m128i*)x, (__m128i*)y, (__m128i*)z, AR); }
     // SSE
     start = clock();
-        for(int i=0; i<REPS; ++i) {
-            add_iv_sse((__m128i*)f, (__m128i*)g, (__m128i*)h, AR);
-        }
+    //for(int i=0; i<REPS; ++i) { add_iv_sse((__m128i*)f, (__m128i*)g, (__m128i*)h, AR); }
+    for(int i=0; i<REPS; ++i) { add_iv_sse((__m128i*)x, (__m128i*)y, (__m128i*)z, AR); }
     msec = (clock()-start) * 1000 / CLOCKS_PER_SEC;
     printf("\n  SSE Time taken: %d seconds %d milliseconds\n", msec/1000, msec%1000);
-    debug_print(h);
+    debug_print(z);
 
     return EXIT_SUCCESS;
 }
