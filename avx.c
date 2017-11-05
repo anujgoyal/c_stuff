@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <x86intrin.h>
 #include <time.h>
 #ifndef __cplusplus
@@ -56,10 +56,18 @@ int main(int argc, char *argv[]) {
     // printf("sizeof(__m256i): %lu\n", sizeof(__m256i));
 
     // arrays for AVX
-    int x[AR] __attribute__((aligned(32))) = {0,2,4};
-    int y[AR] __attribute__((aligned(32))) = {1,3,n};
-    int z[AR] __attribute__((aligned(32))); 
+    //int x[AR] __attribute__((aligned(32))) = {0,2,4};
+    //int y[AR] __attribute__((aligned(32))) = {1,3,n};
+    //int z[AR] __attribute__((aligned(32))); 
+    //int *x = aligned_alloc(32, 16384*sizeof(int)); // doesn't appear to work in C99
 
+    int *x,*y,*z;
+    if (posix_memalign((void**)&x, 32, 16384*sizeof(int))) { free(x); return EXIT_FAILURE; }
+    if (posix_memalign((void**)&y, 32, 16384*sizeof(int))) { free(x); return EXIT_FAILURE; }
+    if (posix_memalign((void**)&z, 32, 16384*sizeof(int))) { free(x); return EXIT_FAILURE; }
+    x[0]=0; x[1]=2; x[2]=4;
+    y[0]=1; y[1]=3; y[2]=n;
+        
     // arrays for SSE
     int f[AR] __attribute__((aligned(16))) = {0,2,4};
     int g[AR] __attribute__((aligned(16))) = {1,3,n};
