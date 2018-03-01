@@ -37,23 +37,30 @@ ALN* newALN(int dest) {
 G* createGraph(int V) {
     G* g = (G*) malloc(sizeof(G));
     g->V = V;
-    g->array = (AL*) malloc(V * sizeof(AL));
-    
-    int i;
-    for (i=0; i<V; ++i) {
-        g->array[i] = NULL;
-    }
+    g->array = (AL*) calloc(V,sizeof(AL));
+
+    //g->array = (AL*) malloc(V * sizeof(AL));
+    //int i;
+    //for (i=0; i<V; ++i) {
+    //    g->array[i] = (AL)NULL;
+    // }
     return g;
 }
 
 // add edge to undirected graph
-void addEdge(G* g; int src, int dest) {
-    // go through linked list and add node to end
-    ALN* head = g->array[src].head;
-    while(head) {
-        head = head->next;
-    }
-    head  = newALN(dest);
+void addEdge(G* g, int src, int dest) {
+
+    // Add edge from src to dest.  A new node is added to the adjacency
+    // list of src.  The node is added at the begining O(1)
+    // if node was added to end would need to walk linked list; 
+    ALN* nn = newALN(dest); // nn: newnode
+    nn->next = g->array[src].head;
+    g->array[src].head = nn;
+
+    // Since graph is undirected, add an edge from dest to src also
+    nn = newALN(src);
+    nn->next = g->array[dest].head;
+    g->array[dest].head = nn;
 }
 
 
