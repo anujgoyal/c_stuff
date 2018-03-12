@@ -52,7 +52,7 @@ List *cons(void *_car, void *_cdr) {
 
 // intern string
 void *intern(char *sym) {
-    List *pair = symbols;
+    List *_pair = symbols;
     // search for string in existing symbol list
     for (; _pair ; _pair = cdr(_pair)) {
             if (strncmp(sym, (char*)car(_pair), 32)==0) {
@@ -96,7 +96,7 @@ void print_obj(List *ob, int head_of_list) {
         if (cdr(ob) != 0) {
             if (is_pair(cdr(ob))) {
                 printf(" ");
-                print_obj(cdr(ob),0)
+                print_obj(cdr(ob),0);
             }
         } else {
             printf(")"); // end of list
