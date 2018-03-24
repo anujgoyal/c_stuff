@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #ifndef __STDC_NO_ATOMICS__
 #include <stdatomic.h>
 #endif

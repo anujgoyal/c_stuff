@@ -1,5 +1,6 @@
 // https://www.geeksforgeeks.org/graph-and-its-representations/
 // A C Program to demonstrate adjacency list representation of graphs
+// http://www.sanfoundry.com/cpp-programming-examples-graph-problems-algorithms/
  
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,4 +64,32 @@ void addEdge(G* g, int src, int dest) {
     g->array[dest].head = nn;
 }
 
+// printgraph: utility function
+void printGraph(G* g) {
+    int i;
+    for(i=0; i<g->V; ++i) {
+        ALN* head = g->array[i].head;
+        while (head) {
+            printf("%i:%i, ", i, head->dest);
+            head = head->next;
+        }
+        printf("\n");
+    }
+}
+
+// driver program to test above functions
+int main() {
+    int V = 5;
+    G* g = createGraph(V);
+    addEdge(g, 0, 1);
+    addEdge(g, 0, 4);
+    addEdge(g, 1, 2);
+    addEdge(g, 1, 3);
+    addEdge(g, 1, 4);
+    addEdge(g, 2, 3);
+    addEdge(g, 3, 4);
+
+    printGraph(g);
+    return EXIT_SUCCESS;
+}
 

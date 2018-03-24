@@ -27,4 +27,6 @@ sumass: sum.c
 	clang -S -O3 -msse -msse2 -msse3 -msse4.1 sum.c
 sum2ass: sum2.c
 	clang -S -O3 -msse -msse2 -msse3 -msse4.1 sum2.c
+avxass: avx.c
+	clang -S -O3 -msse -msse2 -msse3 -msse4.1 -mavx -mavx2 avx.c
 

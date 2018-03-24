@@ -116,4 +116,35 @@ List *fwriteobj(List *a) { print_obj(car(a), 1); puts(""); return e_true;   }
 
 List *eval(List *exp, List *env);
 
-//List *evlist(List *list, 
+// evaluate list
+List *evlist(List *list, List *env) {
+    List *head = 0, **args = &head;
+    // loop through list
+    for ( ; list ; list = cdr(list) ) {
+        *args = cons( eval(car(list), env), 0);
+        args = &( (List *) untag(*args) )-> next;
+    }
+    return head;
+}
+
+List *apply_primitive(void *primfn, List *args) {
+    return ((List *(*) (List *) primfn) (args);
+}
+
+List *eval(List *exp, List *env) {
+    if (!is_pair(exp)) {
+        for ( ; env !=0; env=cdr(env) ) 
+            if (exp == car(car(env))) return car(cdr(car(env)));
+        return 0
+    } else {
+        if (!is_pair( car(exp))) { /* special forms */
+            return car(cdr(exp));
+        } else if (car(exp) == intern("if")) {
+
+
+    }
+}
+
+
+
+
