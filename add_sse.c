@@ -11,8 +11,8 @@ int main()
 {
     // init to zero, https://stackoverflow.com/questions/201101
     int a[N] = {};
-    __m128i d = 0;
-    __m128i a = 0;
+    __m128i d = (__m128i)0;
+    __m128i a = (__m128i)0;
     __m128i b = 1;
     int sum=0;
 
